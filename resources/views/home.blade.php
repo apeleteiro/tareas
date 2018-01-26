@@ -42,7 +42,13 @@
                     @endif
                     <table class="table">
                         @forelse($tareas as $tarea)
-                            <tr>
+                            @if ($tarea->estado === 'En proceso')
+                                <tr class="success">
+                            @elseif ($tarea->estado === 'Completada')
+                                <tr class="info">
+                            @else
+                                <tr>
+                            @endif
                                 <td>{{ $tarea->texto }}</td>
                                 <td class="text-right">{{ $tarea->estado }}</td>
                                 <td class="text-right">
