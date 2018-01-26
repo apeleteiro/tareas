@@ -48,16 +48,18 @@ class HomeController extends Controller
 
         $tarea = Tarea::find($id);
 
-        switch ($estado) {
-            case 1:
-                $tarea->estado = 'En proceso';
-                break;
-            case 2:
-                $tarea->estado = 'Completada';
-                break;
-        }
+        if ($tarea->user_id === Auth::id()) {
+            switch ($estado) {
+                case 1:
+                    $tarea->estado = 'En proceso';
+                    break;
+                case 2:
+                    $tarea->estado = 'Completada';
+                    break;
+            }
 
-        $tarea->save();
+            $tarea->save();
+        }
 
         return redirect('/home');
     }
@@ -69,7 +71,10 @@ class HomeController extends Controller
         }
 
         $tarea = Tarea::find($id);
-        $tarea->delete();
+
+        if ($tarea->user_id === Auth::id()) {
+            $tarea->delete();
+        }
 
         return redirect('/home');
     }
