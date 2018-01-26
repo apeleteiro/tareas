@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Tarea;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $tareas = Tarea::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+
+        return view('home', ['tareas' => $tareas]);
+    }
+
+    public function crearTarea(Request $request)
+    {
+        $tarea = new Tarea();
+        $tarea->texto = $request->texto;
+        $tarea->user_id = Auth::id();
+        $tarea->save();
+
+        return redirect('/home');
     }
 }
