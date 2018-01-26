@@ -44,9 +44,15 @@
                         @forelse($tareas as $tarea)
                             <tr>
                                 <td>{{ $tarea->texto }}</td>
-                                <td>{{ $tarea->estado }}</td>
-                                <td>
-                                    AA
+                                <td class="text-right">{{ $tarea->estado }}</td>
+                                <td class="text-right">
+                                    @if ($tarea->estado === 'Pendiente')
+                                        <a href="{{ url('/cambiar-estado', [$tarea->id, 1]) }}" class="btn btn-success btn-xs"><i class="fa fa-play fa-fw"></i></a>
+                                    @endif
+                                    @if ($tarea->estado === 'En proceso')
+                                        <a href="{{ url('/cambiar-estado', [$tarea->id, 2]) }}" class="btn btn-primary btn-xs"><i class="fa fa-check fa-fw"></i></a>
+                                    @endif
+                                        <a href="{{ url('eliminar',[$tarea->id]) }}" class="btn btn-danger btn-xs"><i class="fa fa-times fa-fw"></i></a>
                                 </td>
                             </tr>
                         @empty
@@ -55,6 +61,7 @@
                     </table>
                 </div>
             </div>
+            <div class="text-center">{{ $tareas->links() }}</div>
         </div>
     </div>
 </div>
