@@ -32,17 +32,27 @@ class HomeController extends Controller
 
     public function crearTarea(Request $request)
     {
+        if ('' == $request->texto) {
+            session()->flash('msg', 'No se ha podido realizar la operación.');
+            session()->flash('tipoAlerta', 'warning');
+            return redirect('/home');
+        }
+
         $tarea = new Tarea();
         $tarea->texto = $request->texto;
         $tarea->user_id = Auth::id();
         $tarea->save();
 
+        session()->flash('msg', 'Tarea creada de manera satisfactoria.');
+        session()->flash('tipoAlerta', 'success');
         return redirect('/home');
     }
 
     public function cambiarEstado($id, $estado)
     {
         if (!isset($id) || !isset($estado)) {
+            session()->flash('msg', 'No se ha podido realizar la operación.');
+            session()->flash('tipoAlerta', 'warning');
             return redirect('/home');
         }
 
@@ -61,12 +71,16 @@ class HomeController extends Controller
             $tarea->save();
         }
 
+        session()->flash('msg', 'Estado cambiado de manera satisfactoria.');
+        session()->flash('tipoAlerta', 'success');
         return redirect('/home');
     }
 
     public function eliminar($id)
     {
         if (!isset($id)) {
+            session()->flash('msg', 'No se ha podido realizar la operación.');
+            session()->flash('tipoAlerta', 'warning');
             return redirect('/home');
         }
 
@@ -76,6 +90,8 @@ class HomeController extends Controller
             $tarea->delete();
         }
 
+        session()->flash('msg', 'Tarea eliminada de manera satisfactoria.');
+        session()->flash('tipoAlerta', 'danger');
         return redirect('/home');
     }
 }
