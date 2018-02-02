@@ -32,11 +32,15 @@ class HomeController extends Controller
 
     public function crearTarea(Request $request)
     {
-        if ('' == $request->texto) {
-            session()->flash('msg', 'No se ha podido realizar la operación.');
-            session()->flash('tipoAlerta', 'warning');
-            return redirect('/home');
-        }
+        $this->validate($request, [
+            'texto' => 'bail|required|string|max:191'
+        ]);
+
+//        if ('' == $request->texto) {
+//            session()->flash('msg', 'No se ha podido realizar la operación.');
+//            session()->flash('tipoAlerta', 'warning');
+//            return redirect('/home');
+//        }
 
         $tarea = new Tarea();
         $tarea->texto = $request->texto;

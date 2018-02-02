@@ -21,5 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/crear-tarea', 'HomeController@crearTarea');
 
-Route::get('/cambiar-estado/{id}/{estado}', 'HomeController@cambiarEstado');
-Route::get('/eliminar/{id}', 'HomeController@eliminar');
+Route::get('/cambiar-estado/{id?}/{estado?}', 'HomeController@cambiarEstado');
+Route::get('/eliminar/{id?}', 'HomeController@eliminar');
