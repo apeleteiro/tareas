@@ -39,7 +39,7 @@
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    Logout
+                                    {{ __('messages.logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -49,6 +49,21 @@
                         </ul>
                     </li>
                 @endguest
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{ __('messages.lang') }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ url('/idioma/es') }}">{{ __('messages.esp') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('idioma/en') }}">{{ __('messages.eng') }}</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tarea;
 use Auth;
+use App;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,15 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        $this->middleware(function ($request, $next)
+        {
+            if(session()->has('idioma')) {
+                App::setLocale(session()->get('idioma'));
+            }
+
+            return $next($request);
+        });
+
         $this->middleware('auth');
     }
 

@@ -5,16 +5,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Crear tarea</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">{{ __('messages.createTask') }}</h5>
                 </div>
                 <form action="{{ url('crear-tarea') }}" method="post">
                     {{ csrf_field() }}
                     <div class="modal-body">
-                        <input type="text" name="texto" class="form-control" placeholder="Describe la tarea">
+                        <input type="text" name="texto" class="form-control" placeholder="{{ __('messages.writeTask') }}">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <input type="submit" class="btn btn-primary" value="Crear tarea">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('messages.cancel') }}</button>
+                        <input type="submit" class="btn btn-primary" value="{{ __('messages.createTask') }}">
                     </div>
                 </form>
             </div>
@@ -27,12 +27,12 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="text-right">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearTarea">
-                    <i class="fa fa-plus"> Tarea</i>
+                    <i class="fa fa-plus"> {{ __('messages.task') }}</i>
                 </button>
             </div>
             <br>
             <div class="panel panel-default">
-                <div class="panel-heading">Mis tareas</div>
+                <div class="panel-heading">{{ __('messages.myTasks') }}</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -50,7 +50,15 @@
                                 <tr>
                             @endif
                                 <td>{{ $tarea->texto }}</td>
-                                <td class="text-right">{{ $tarea->estado }}</td>
+                                <td class="text-right">
+                                    @if ($tarea->estado === 'Pendiente')
+                                        {{ __('messages.pending') }}
+                                    @elseif ($tarea->estado === 'En proceso')
+                                        {{ __('messages.progress') }}
+                                    @else
+                                        {{ __('messages.completed') }}
+                                    @endif
+                                </td>
                                 <td class="text-right">
                                     @if ($tarea->estado === 'Pendiente')
                                         <a href="{{ url('/cambiar-estado', [$tarea->id, 1]) }}" class="btn btn-success btn-xs"><i class="fa fa-play fa-fw"></i></a>
@@ -62,7 +70,7 @@
                                 </td>
                             </tr>
                         @empty
-                            No hay tareas para mostrar.
+                            {{ __('messages.noTasks') }}
                         @endforelse
                     </table>
                 </div>
