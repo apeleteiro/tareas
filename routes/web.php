@@ -13,18 +13,22 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::post('/crear-tarea', 'HomeController@crearTarea');
-
-Route::get('/cambiar-estado/{id?}/{estado?}', 'HomeController@cambiarEstado');
-Route::get('/eliminar/{id?}', 'HomeController@eliminar');
 
 Route::get('/idioma/{id}', function($id) {
     session()->put('idioma', $id);
     return back();
+})->name('idioma');
+
+
+Route::group(['middleware' => 'auth'], function() {
+
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/cambiar-estado/{id?}/{estado?}', 'HomeController@cambiarEstado')->name('modificar.estado');
+    Route::get('/eliminar/{id?}', 'HomeController@eliminar')->name('eliminar.tarea');
+
+    Route::post('/crear-tarea', 'HomeController@crearTarea')->name('crear.tarea');
+
 });

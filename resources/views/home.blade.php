@@ -7,7 +7,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">{{ __('messages.createTask') }}</h5>
                 </div>
-                <form action="{{ url('crear-tarea') }}" method="post">
+                <form action="{{ route('crear.tarea') }}" method="post">
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <input type="text" name="texto" class="form-control" placeholder="{{ __('messages.writeTask') }}">
@@ -61,12 +61,12 @@
                                 </td>
                                 <td class="text-right">
                                     @if ($tarea->estado === 'Pendiente')
-                                        <a href="{{ url('/cambiar-estado', [$tarea->id, 1]) }}" class="btn btn-success btn-xs"><i class="fa fa-play fa-fw"></i></a>
+                                        <a href="{{ route('modificar.estado', [$tarea->id, 1]) }}" class="btn btn-success btn-xs"><i class="fa fa-play fa-fw"></i></a>
                                     @endif
                                     @if ($tarea->estado === 'En proceso')
-                                        <a href="{{ url('/cambiar-estado', [$tarea->id, 2]) }}" class="btn btn-primary btn-xs"><i class="fa fa-check fa-fw"></i></a>
+                                        <a href="{{ route('modificar.estado', [$tarea->id, 2]) }}" class="btn btn-primary btn-xs"><i class="fa fa-check fa-fw"></i></a>
                                     @endif
-                                        <a href="{{ url('eliminar',[$tarea->id]) }}" class="btn btn-danger btn-xs"><i class="fa fa-times fa-fw"></i></a>
+                                        <a href="{{ route('eliminar.tarea',[$tarea->id]) }}" class="btn btn-danger btn-xs"><i class="fa fa-times fa-fw"></i></a>
                                 </td>
                             </tr>
                         @empty

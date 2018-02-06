@@ -11,7 +11,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ route('welcome') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
@@ -51,16 +51,17 @@
                 @endguest
             </ul>
             <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         {{ __('messages.lang') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url('/idioma/es') }}">{{ __('messages.esp') }}</a>
+                            <a href="{{ route('idioma', ['es']) }}">{{ __('messages.esp') }}</a>
                         </li>
                         <li>
-                            <a href="{{ url('idioma/en') }}">{{ __('messages.eng') }}</a>
+                            <a href="{{ route('idioma', ['en']) }}">{{ __('messages.eng') }}</a>
                         </li>
                     </ul>
                 </li>

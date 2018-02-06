@@ -25,7 +25,7 @@ class HomeController extends Controller
             return $next($request);
         });
 
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
