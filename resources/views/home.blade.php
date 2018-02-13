@@ -31,7 +31,7 @@
                 </button>
             </div>
             <br>
-            <div class="panel panel-default">
+            <div class="panel panel-default panel-primary">
                 <div class="panel-heading">{{ __('messages.myTasks') }}</div>
 
                 <div class="panel-body">

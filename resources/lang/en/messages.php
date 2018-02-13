@@ -10,7 +10,15 @@ return [
     'createTask'    => 'Create task',
     'writeTask'     => 'Describe your task',
     'cancel'        => 'Cancel',
+    'noTasks'       => 'There is no tasks to show.',
     'lang'          => 'Language',
     'esp'           => 'Spanish',
-    'eng'           => 'English'
+    'eng'           => 'English',
+    'config'        => 'Settings',
+    'changePass'    => 'Change password',
+    'oldPass'       => 'Current password',
+    'newPass'       => 'New password',
+    'confirmPass'   => 'Confirm new password',
+    'save'          => 'Save',
+    'home'          => 'Home'
 ];

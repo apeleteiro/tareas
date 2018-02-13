@@ -13,5 +13,12 @@ return [
     'noTasks'       => 'No hay tareas para mostrar.',
     'lang'          => 'Idioma',
     'esp'           => 'Español',
-    'eng'           => 'Inglés'
+    'eng'           => 'Inglés',
+    'config'        => 'Configuración',
+    'changePass'    => 'Cambiar contraseña',
+    'oldPass'       => 'Contraseña actual',
+    'newPass'       => 'Nueva contraseña',
+    'confirmPass'   => 'Confirmar nueva contraseña',
+    'save'          => 'Guardar',
+    'home'          => 'Inicio'
 ];

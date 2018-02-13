@@ -19,7 +19,9 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                &nbsp;
+                &nbsp;<li>
+                    <a href="{{ route('home') }}">{{ __('messages.home') }}</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -35,6 +37,9 @@
                         </a>
 
                         <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ route('config') }}">{{ __('messages.config') }}</a>
+                            </li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

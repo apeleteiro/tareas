@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tarea;
+use App\User;
 use Auth;
 use App;
+use Hash;
 
 class HomeController extends Controller
 {
@@ -59,7 +61,7 @@ class HomeController extends Controller
 
         session()->flash('msg', 'Tarea creada de manera satisfactoria.');
         session()->flash('tipoAlerta', 'success');
-        return redirect('/home');
+        return redirect()->route('home');
     }
 
     public function cambiarEstado($id, $estado)
@@ -87,7 +89,7 @@ class HomeController extends Controller
 
         session()->flash('msg', 'Estado cambiado de manera satisfactoria.');
         session()->flash('tipoAlerta', 'success');
-        return redirect('/home');
+        return redirect()->route('home');
     }
 
     public function eliminar($id)
@@ -106,6 +108,42 @@ class HomeController extends Controller
 
         session()->flash('msg', 'Tarea eliminada de manera satisfactoria.');
         session()->flash('tipoAlerta', 'danger');
-        return redirect('/home');
+        return redirect()->route('home');
+    }
+
+    public function showConfig()
+    {
+        return view('config');
+    }
+
+    public function cambiarPass(Request $request)
+    {
+        $this->validate($request, [
+            'oldPass' => 'bail|required|string',
+            'newPass1' => 'bail|required|string|min:8',
+            'newPass2' => 'bail|required|string|min:8'
+        ]);
+
+        if (Hash::check($request->oldPass, Auth::user()->password)) {
+            if ($request->newPass1 === $request->newPass2) {
+
+                $usuario = User::find(Auth::id());
+                $usuario->password = Hash::make($request->newPass1);
+                $usuario->save();
+
+                session()->flash('msg', 'Se ha modificado la contraseña.');
+                session()->flash('tipoAlerta', 'success');
+            } else {
+
+                session()->flash('msg', 'Las contraseñas no coindicen.');
+                session()->flash('tipoAlerta', 'danger');
+            }
+        } else {
+
+            session()->flash('msg', 'La c   ontraseña actual es incorrecta.');
+            session()->flash('tipoAlerta', 'danger');
+        }
+
+        return redirect()->route('config');
     }
 }
