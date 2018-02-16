@@ -34,3 +34,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/config/pass', 'HomeController@cambiarPass')->name('cambiar.pass');
 
 });
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('/{provider}', 'Auth\LoginController@redirectToProvider');
+    Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+});
