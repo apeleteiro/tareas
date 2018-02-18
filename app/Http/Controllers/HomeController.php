@@ -37,7 +37,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tareas = Tarea::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(5);
+        //$tareas = Tarea::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(5);
+        $tareas = User::find(Auth::id())->tareas()->orderBy('created_at', 'desc')->paginate(5);
 
         return view('home', ['tareas' => $tareas]);
     }
@@ -54,10 +55,14 @@ class HomeController extends Controller
 //            return redirect('/home');
 //        }
 
-        $tarea = new Tarea();
-        $tarea->texto = $request->texto;
-        $tarea->user_id = Auth::id();
-        $tarea->save();
+//        $tarea = new Tarea();
+//        $tarea->texto = $request->texto;
+//        $tarea->user_id = Auth::id();
+//        $tarea->save();
+
+        $tarea = new Tarea(['texto' => $request->texto]);
+        $usuario = User::find(Auth::id());
+        $usuario->tareas()->save($tarea);
 
         session()->flash('msg', 'Tarea creada de manera satisfactoria.');
         session()->flash('tipoAlerta', 'success');
