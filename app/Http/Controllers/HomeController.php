@@ -8,6 +8,7 @@ use App\User;
 use Auth;
 use App;
 use Hash;
+use Log;
 
 class HomeController extends Controller
 {
@@ -109,10 +110,21 @@ class HomeController extends Controller
 
         if ($tarea->user_id === Auth::id()) {
             $tarea->delete();
+        } else {
+            Log::notice('Intento de eliminación no permitido.', [
+                'id'         => Auth::id(),
+                'mombre'     => Auth::user()->name,
+                'email'      => Auth::user()->email,
+                'tarea'      => $id,
+                'tarea_user' => $tarea->user_id,
+            ]);
+            session()->flash('msg', 'Intento de eliminación no permitido.');
+            session()->flash('tipoAlerta', 'danger');
+            return redirect()->route('home');
         }
 
         session()->flash('msg', 'Tarea eliminada de manera satisfactoria.');
-        session()->flash('tipoAlerta', 'danger');
+        session()->flash('tipoAlerta', 'success');
         return redirect()->route('home');
     }
 
